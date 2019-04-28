@@ -7,6 +7,8 @@ if(isset($_GET)) {
     $action = $_GET['action'];
     if($action == 'featured') {
         getFeaturedLots();
+    } else if($action == 'get') {
+        getLot($_GET['id']);
     }
 
 } elseif (isset($_POST)) {
@@ -18,5 +20,11 @@ if(isset($_GET)) {
 function getFeaturedLots() {
     $lots = findFeaturedLots();
     echo json_encode($lots);
+    die();
+}
+
+function getLot($id) {
+    $lot = findLotById($id);
+    echo json_encode($lot);
     die();
 }

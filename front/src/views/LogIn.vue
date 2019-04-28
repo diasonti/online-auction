@@ -54,7 +54,7 @@
                     email: email,
                     password: password,
                 }).then(() => {
-                    context.$router.push("index")
+                    context.$router.replace("/")
                 }).catch((error) => {
                     context.loginForm.error = error
                 })

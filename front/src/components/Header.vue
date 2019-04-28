@@ -45,7 +45,7 @@
                 const context = this
                 this.$store.dispatch('logOut', {})
                     .then(() => {
-                        context.$router.replace("index")
+                        context.$router.replace("")
                     }).catch((error) => {
                     console.error(error)
                 })
