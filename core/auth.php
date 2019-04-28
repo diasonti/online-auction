@@ -38,6 +38,7 @@ function authenticate() {
     if(empty($token)) {
         accessDenied();
     }
+    $token = mb_substr($token, 6);
     $userAccount = getUserByToken($token);
     if(!empty($userAccount)) {
         global $user;
