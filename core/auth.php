@@ -6,8 +6,8 @@ if(!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
 
 $token = $_SERVER['HTTP_AUTHORIZATION'];
 
-require_once('db.php');
-require_once('../data/repository/UserAccountRepository.php');
+require_once(__DIR__.'/db.php');
+require_once(__DIR__.'/../data/repository/UserAccountRepository.php');
 
 $user = null;
 

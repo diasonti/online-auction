@@ -1,5 +1,6 @@
 <?php
-require_once('../../core/db.php');
+require_once(__DIR__.'/../../core/db.php');
+require_once(__DIR__.'/../entity/UserAccount.php');
 
 /** @var DatabaseConnector $db */
 $db = $GLOBALS['db'];
@@ -28,10 +29,10 @@ function findUserAccountById($id) {
 
 function findUserAccountByEmail($email) {
     global $db;
-    $sql = "SELECT * FROM user_account WHERE email = $email";
+    $sql = "SELECT * FROM user_account WHERE email = '$email'";
     $rows = $db->execute($sql);
     $userAccount = null;
-    if($rows->num_rows == 1) {
+    if(!empty($rows) && $rows->num_rows == 1) {
         $row = $rows->fetch_assoc();
         $userAccount = rowToUserAccount($row);
     }

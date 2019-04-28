@@ -1,6 +1,7 @@
 <?php
-require_once('../../core/db.php');
-require_once('../../data/repository/BetRepository.php');
+require_once(__DIR__.'/../../core/db.php');
+require_once(__DIR__.'/../../data/entity/Lot.php');
+require_once(__DIR__.'/../../data/repository/BetRepository.php');
 
 /** @var DatabaseConnector $db */
 $db = $GLOBALS['db'];
@@ -40,6 +41,20 @@ function findLotsBySellerId($sellerId) {
     $rows = $db->execute($sql);
     $lots = array();
     if($rows->num_rows == 1) {
+        while($row = $rows->fetch_assoc()) {
+            $lot = rowToLot($row);
+            array_push($lots, $lot);
+        }
+    }
+    return $lots;
+}
+
+function findFeaturedLots() {
+    global $db;
+    $sql = "SELECT * FROM lot ORDER BY created_at DESC LIMIT 6";
+    $rows = $db->execute($sql);
+    $lots = array();
+    if($rows->num_rows > 0) {
         while($row = $rows->fetch_assoc()) {
             $lot = rowToLot($row);
             array_push($lots, $lot);

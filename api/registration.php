@@ -1,11 +1,11 @@
 <?php
-
+require_once(__DIR__."/../core/cors.php");
 if(empty($_POST) or empty($_POST["email"]) or empty($_POST["password"]) or empty($_POST["passwordConfirm"]) or empty($_POST["fullName"])) {
     echo 'error';
     die();
 }
 
-require_once("../data/repository/UserAccountRepository.php");
+require_once(__DIR__."/../data/repository/UserAccountRepository.php");
 
 $email = $_POST["email"];
 $fullName = $_POST["fullName"];

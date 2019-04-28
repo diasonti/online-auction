@@ -5,19 +5,19 @@
                 <h2>Navigation</h2>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item 1</a>
+                        <router-link to="/lots/1" class="nav-link">Category 1</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item 2</a>
+                        <router-link to="/lots/2" class="nav-link">Category 2</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item 3</a>
+                        <router-link to="/lost/3" class="nav-link">Category 3</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item 4</a>
+                        <router-link to="/lots/4" class="nav-link">Category 4</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item 5</a>
+                        <router-link to="/lots/5" class="nav-link">Category 5</router-link>
                     </li>
                 </ul>
             </div>
@@ -55,71 +55,51 @@
         </div>
         <div class="row border border-bottom-0 mt-3 p-3">
             <div class="col">
-                <h2 style="text-align: center;">Recommended deals</h2>
+                <h2 style="text-align: center;">Featured lots</h2>
             </div>
         </div>
         <div class="row border border-top-0 p-3" id="featuredProducts">
-            <div class="col-2">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=First+Product"
-                         alt="Card image cap">
+
+            <!-- Six cards -->
+            <!--            <div class="col-2" v-for="item in featuredLots">-->
+            <div class="col" v-for="item in featuredLots">
+                <router-link :to="'/lot/' + item.id" class="card">
+                    <!--                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=First+Product"-->
+                    <img class="card-img-top" :src="item.imageUrl"
+                         :alt="item.title">
                     <div class="card-body">
-                        <p class="card-text">First product</p>
+                        <p class="card-text">{{ item.title }}</p>
                     </div>
-                </div>
+                </router-link>
             </div>
-            <div class="col-2">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=Second+Product"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Second product</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=Third+Product"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Third product</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=Fourth+Product"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Fourth product</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=Fifth+Product"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Fifth product</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=Sixth+Product"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Sixth product</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Index"
+        name: "Index",
+        data() {
+            return {
+                featuredLots: []
+            }
+        },
+        methods: {
+            refreshFeaturedLots() {
+                const context = this;
+                this.axios.get("/lots.php?action=featured")
+                    .then((response) => {
+                        context.featuredLots = response.data
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        },
+        created() {
+            this.refreshFeaturedLots();
+        }
     }
 </script>
 

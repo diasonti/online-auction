@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Logo</a>
+        <router-link to="/" class="navbar-brand">Logo</router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,13 +12,16 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="!loggedIn">
                             Profile
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Sign in</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" v-if="!loggedIn">
+                            <router-link to="/login" class="dropdown-item">Sign in</router-link>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Sign up</a>
+                            <router-link to="/register" class="dropdown-item">Sign up</router-link>
+                        </div>
+                        <div v-if="loggedIn">
+                            <button @click="logout" class="btn btn-warning">Log out</button>
                         </div>
                     </li>
                 </ul>
@@ -31,7 +34,23 @@
 
 <script>
     export default {
-        name: "Header"
+        name: "Header",
+        computed: {
+            loggedIn() {
+                return this.$store.getters.token
+            }
+        },
+        methods: {
+            logout() {
+                const context = this
+                this.$store.dispatch('logOut', {})
+                    .then(() => {
+                        context.$router.replace("index")
+                    }).catch((error) => {
+                    console.error(error)
+                })
+            }
+        }
     }
 </script>
 
