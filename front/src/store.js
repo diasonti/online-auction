@@ -38,7 +38,7 @@ const actions = {
     formData.append('email', auth.email);
     formData.append('password', auth.password);
 
-    return Vue.axios.post('/login', formData)
+    return Vue.axios.post('/login.php', formData)
         .then(response => {
           if(response.data != null && response.data.endsWith("=")) {
             localStorage.setItem('auth_token', response.data);

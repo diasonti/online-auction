@@ -1,7 +1,8 @@
 <?php
 
 if(empty($_POST) or empty($_POST["email"]) or empty($_POST["password"])) {
-    echo "500";
+    echo "error";
+    die();
 }
 
 require_once("../data/repository/UserAccountRepository.php");
@@ -9,13 +10,13 @@ require_once("../data/repository/UserAccountRepository.php");
 $email = $_POST["email"];
 $password = $_POST["password"];
 
-$email = mysqli_escape_string($GLOBALS["db"], $email);
-$password = mysqli_escape_string($GLOBALS["db"], $password);
+$email = mysqli_escape_string($GLOBALS["db"]->conn, $email);
+$password = mysqli_escape_string($GLOBALS["db"]->conn, $password);
 
 $userAccount = findUserAccountByEmail($email);
 if(empty($userAccount) or $userAccount->password != $password) {
     echo "bad.credentials";
-    return;
+    die();
 }
 
 $pair = $email . ":" . $password;

@@ -2,13 +2,17 @@
 
 class DatabaseConnector {
 
-    private $conn;
+    public $conn;
 
     public function __construct($host, $username, $password, $database, $port) {
         $this->conn = new mysqli($host, $username, $password, $database, $port);
         if ($this->conn->connect_error) {
             die("Database connection failed: " . $this->conn->connect_error);
         }
+    }
+
+    public function __destruct() {
+        return $this->conn->close();
     }
 
     public function execute($sql) {

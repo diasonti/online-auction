@@ -8,6 +8,5 @@ class UserAccount {
     public $password;
 
     public $fullName;
-    public $birthDate;
 
 }

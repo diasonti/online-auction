@@ -37,3 +37,15 @@ function findUserAccountByEmail($email) {
     }
     return $userAccount;
 }
+
+function saveUserAccount($userAccount) {
+    global $db;
+    $sql = null;
+    if(empty($userAccount->id)) {
+        $sql = "INSERT INTO user_account (email, password, full_name) VALUES ('$userAccount->email', '$userAccount->password', '$userAccount->fullName')";
+    } else {
+        $sql = "UPDATE user_account SET email = '$userAccount->email', password = '$userAccount->password', full_name = '$userAccount->fullName' WHERE id = $userAccount->id";
+    }
+    return $db->execute($sql);
+}
+
