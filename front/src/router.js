@@ -4,6 +4,7 @@ import Index from "./views/Index"
 import LotView from "./views/LotView"
 import LogIn from "./views/LogIn"
 import Registration from "./views/Registration"
+import NotFound from "./views/NotFound"
 
 Vue.use(Router)
 
@@ -32,6 +33,10 @@ const router = new Router({
       component: LotView,
       props: true
     },
+    {
+      path :'*',
+      component: NotFound
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
     return savedPosition || { x: 0, y: 0 }
