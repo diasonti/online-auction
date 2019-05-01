@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="root">
     <Header />
     <router-view/>
     <Footer />
@@ -7,10 +7,13 @@
 </template>
 
 <style>
-#app {
+#root {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.hidden {
+  display: none;
 }
 </style>
 <script>
