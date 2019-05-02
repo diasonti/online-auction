@@ -5,6 +5,7 @@ import LotView from "./views/LotView"
 import LogIn from "./views/LogIn"
 import Registration from "./views/Registration"
 import NotFound from "./views/NotFound"
+import Profile from "./views/Profile"
 
 Vue.use(Router)
 
@@ -31,6 +32,17 @@ const router = new Router({
       path: '/lot/:lotId',
       name: 'lot',
       component: LotView,
+      props: true
+    },
+    {
+      path: '/profile',
+      name: 'myProfile',
+      component: Profile
+    },
+    {
+      path: '/profile/:id',
+      name: 'profile',
+      component: Profile,
       props: true
     },
     {

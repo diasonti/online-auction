@@ -10,25 +10,18 @@ const state = {
 const getters = {
   token: state => {
     return state.token;
-  },
-
-  error: state => {
-    return state.error;
   }
 };
 
 const mutations = {
   LOGIN_SUCCESS (state, token) {
     state.token = token;
-    state.error = null;
   },
   LOGIN_FAILURE (state, error) {
     state.token = null;
-    state.error = error;
   },
   LOGOUT (state) {
     state.token = null;
-    state.error = null;
   }
 };
 

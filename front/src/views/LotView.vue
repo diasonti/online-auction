@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div class="hidden">
+        <div class="none">
             Lot id is: {{lotId}} <br />
             lot: {{ lot }}
         </div>

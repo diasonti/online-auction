@@ -12,8 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.hidden {
+.none {
   display: none;
+}
+.hidden {
+  opacity: 0;
 }
 </style>
 <script>
