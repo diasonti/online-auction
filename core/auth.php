@@ -1,15 +1,16 @@
 <?php
 
-if(!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
-    accessDenied();
+$token = null;
+foreach (getallheaders() as $name => $value) {
+    if($name == "Authorization") {
+        global $token;
+        $token = mb_substr($value, 6);
+        break;
+    }
 }
-
-$token = $_SERVER['HTTP_AUTHORIZATION'];
 
 require_once(__DIR__.'/db.php');
 require_once(__DIR__.'/../data/repository/UserAccountRepository.php');
-
-$user = null;
 
 function getUserByToken($token) {
     $decodedToken = base64_decode($token);
@@ -33,19 +34,17 @@ function accessDenied() {
     die();
 }
 
-function authenticate() {
-    global $token;
+function authenticate($token) {
     if(empty($token)) {
+        var_dump($token);
         accessDenied();
     }
-    $token = mb_substr($token, 6);
     $userAccount = getUserByToken($token);
     if(!empty($userAccount)) {
-        global $user;
-        $user = $userAccount;
+        $GLOBALS["user"] = $userAccount;
     } else {
         accessDenied();
     }
 }
 
-authenticate();
+authenticate($token);
