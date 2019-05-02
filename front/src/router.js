@@ -6,6 +6,7 @@ import LogIn from "./views/LogIn"
 import Registration from "./views/Registration"
 import NotFound from "./views/NotFound"
 import Profile from "./views/Profile"
+import LotList from "./views/LotList"
 
 Vue.use(Router)
 
@@ -32,6 +33,17 @@ const router = new Router({
       path: '/lot/:lotId',
       name: 'lot',
       component: LotView,
+      props: true
+    },
+    {
+      path: '/lots',
+      name: 'allLots',
+      component: LotList
+    },
+    {
+      path: '/lots/:category',
+      name: 'filter',
+      component: LotList,
       props: true
     },
     {

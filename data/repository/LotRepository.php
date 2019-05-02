@@ -62,3 +62,31 @@ function findFeaturedLots() {
     }
     return $lots;
 }
+
+function findAllLots() {
+    global $db;
+    $sql = "SELECT * FROM lot ORDER BY created_at DESC";
+    $rows = $db->execute($sql);
+    $lots = array();
+    if($rows->num_rows > 0) {
+        while($row = $rows->fetch_assoc()) {
+            $lot = rowToLot($row);
+            array_push($lots, $lot);
+        }
+    }
+    return $lots;
+}
+
+function findLotsByCategory($category) {
+    global $db;
+    $sql = "SELECT * FROM lot WHERE category = '$category' ORDER BY created_at DESC";
+    $rows = $db->execute($sql);
+    $lots = array();
+    if($rows->num_rows > 0) {
+        while($row = $rows->fetch_assoc()) {
+            $lot = rowToLot($row);
+            array_push($lots, $lot);
+        }
+    }
+    return $lots;
+}

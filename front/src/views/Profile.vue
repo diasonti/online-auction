@@ -36,7 +36,8 @@
         props: ["id"],
         data() {
             return {
-                user: null
+                user: null,
+                error: null
             };
         },
         created() {

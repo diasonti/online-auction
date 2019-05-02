@@ -6,6 +6,7 @@ class Lot {
     public $title;
     public $imageUrl;
     public $description;
+    public $category;
 
     public $sellerId;
     public $buyerId;

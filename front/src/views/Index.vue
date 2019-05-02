@@ -5,19 +5,19 @@
                 <h2>Navigation</h2>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <router-link to="/lots/1" class="nav-link">Category 1</router-link>
+                        <router-link to="/lots" class="nav-link">Everything</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/lots/2" class="nav-link">Category 2</router-link>
+                        <router-link to="/lots/books" class="nav-link">Books</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/lost/3" class="nav-link">Category 3</router-link>
+                        <router-link to="/lots/gifts" class="nav-link">Gifts</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/lots/4" class="nav-link">Category 4</router-link>
+                        <router-link to="/lots/toys" class="nav-link">Toys</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/lots/5" class="nav-link">Category 5</router-link>
+                        <router-link to="/lots/clothing" class="nav-link">Clothing</router-link>
                     </li>
                 </ul>
             </div>
