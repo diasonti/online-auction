@@ -125,6 +125,6 @@ function processFinishedLots() {
     $sql = "UPDATE lot SET finished_at = now(), status = 'closed' WHERE status = 'bidding' AND now() >= DATE_ADD(started_at, INTERVAL duration SECOND);";
     $db->execute($sql);
 
-    $sql = "UPDATE lot l SET buyer_user_id = (COALESCE((SELECT bidder_user_id FROM bid WHERE lot_id = l.id ORDER BY bid_amount DESC LIMIT 1) , 0)) WHERE status = 'closed' AND buyer_user_id IS NULL";
+    $sql = "UPDATE lot l SET l.buyer_user_id = (COALESCE((SELECT b.bidder_user_id FROM bid b WHERE b.lot_id = l.id ORDER BY b.bid_amount DESC LIMIT 1) , 0)) WHERE l.status = 'closed' AND l.buyer_user_id IS NULL";
     $db->execute($sql);
 }
