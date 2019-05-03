@@ -9,8 +9,4 @@ if($_SERVER['REQUEST_METHOD'] != 'POST' or !isset($_POST['token']) or $_POST['to
 $GLOBALS['service_access'] = true;
 require_once(__DIR__."/../data/repository/LotRepository.php");
 
-markFinishedLots();
-
-function markFinishedLots() {
-    processFinishedLots();
-}
+processFinishedLots();

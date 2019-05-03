@@ -1,0 +1,12 @@
+POST http://localhost:80/api/service.php
+Cookie: XDEBUG_SESSION=PHPSTORM
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="token"
+Content-Type: text/plain
+
+rii
+--WebAppBoundary--
+
+###
