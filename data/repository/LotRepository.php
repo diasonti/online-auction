@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__.'/../../core/db.php');
 require_once(__DIR__.'/../../data/entity/Lot.php');
-require_once(__DIR__.'/../../data/repository/BetRepository.php');
+require_once(__DIR__ . '/../../data/repository/BidRepository.php');
 
 /** @var DatabaseConnector $db */
 $db = $GLOBALS['db'];
@@ -112,6 +112,12 @@ function saveNewLot($lot) {
     /** @var UserAccount $user */
     $user = $GLOBALS["user"];
     global $db;
-    $sql = "INSERT INTO lot (title, image_url, description, created_at, status, started_at, duration, finished_at, seller_user_id, buyer_user_id, category, starting_price) VALUES ('$lot->title', '$lot->imageUrl', '$lot->description', now(), 'betting', now(), 3600000, null, $user->id, null, '$lot->category', $lot->startingPrice)";
+    $sql = "INSERT INTO lot (title, image_url, description, created_at, status, started_at, duration, finished_at, seller_user_id, buyer_user_id, category, starting_price) VALUES ('$lot->title', '$lot->imageUrl', '$lot->description', now(), 'betting', now(), 3600, null, $user->id, null, '$lot->category', $lot->startingPrice)";
+    return $db->execute($sql);
+}
+
+function markFinishedLots() {
+    global $db;
+    $sql = "";
     return $db->execute($sql);
 }

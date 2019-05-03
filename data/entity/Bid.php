@@ -1,7 +1,7 @@
 <?php
 
 /*
-create table bet
+create table bid
 (
 	id bigint auto_increment
 		primary key,
@@ -16,7 +16,7 @@ create table bet
 );
 */
 
-class Bet {
+class Bid {
 
     public $id;
     public $createdAt;
