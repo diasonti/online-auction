@@ -2,7 +2,7 @@
 require_once(__DIR__."/../core/cors.php");
 require_once(__DIR__."/../data/repository/LotRepository.php");
 
-if(isset($_GET)) {
+if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $action = $_GET['action'];
     if($action == 'featured') {
@@ -17,9 +17,12 @@ if(isset($_GET)) {
         }
     }
 
-} elseif (isset($_POST)) {
-
-
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once(__DIR__."/../core/auth.php");
+    $action = $_POST['action'];
+    if($action == 'create') {
+        createLot($_POST['title'], $_POST['imageUrl'], $_POST['description'], $_POST['category'], $_POST['startingPrice']);
+    }
 
 }
 
@@ -43,5 +46,18 @@ function getList($category) {
         $list = findLotsByCategory($category);
     }
     echo json_encode($list);
+    die();
+}
+
+function createLot($title, $imageUrl, $description, $category, $startingPrice) {
+    $lot = new Lot();
+    $lot->title = $title;
+    $lot->imageUrl = $imageUrl;
+    $lot->description = $description;
+    $lot->category = $category;
+    $lot->startingPrice = $startingPrice;
+    saveNewLot($lot);
+    $lot = findNewestLotBySellerId($GLOBALS['user']->id);
+    echo $lot->id;
     die();
 }

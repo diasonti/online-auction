@@ -21,6 +21,7 @@
                             <router-link v-if="!loggedIn" to="/register" class="dropdown-item">Sign up</router-link>
 
                             <router-link v-if="loggedIn" to="/profile" class="dropdown-item">My profile</router-link>
+                            <router-link v-if="loggedIn" to="/new-lot" class="dropdown-item">New lot</router-link>
                             <div v-if="loggedIn" class="dropdown-divider"></div>
                             <a v-if="loggedIn" @click="logout" class="dropdown-item">Log out</a>
                         </div>

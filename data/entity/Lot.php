@@ -18,6 +18,7 @@ create table lot
 	seller_user_id bigint null,
 	buyer_user_id bigint null,
 	category varchar(255) null,
+	starting_price decimal(19, 2) not null,
 	constraint lot_buyer_user_account_id_fk
 		foreign key (buyer_user_id) references user_account (id),
 	constraint lot_seller_user_account_id_fk
@@ -31,6 +32,7 @@ class Lot {
     public $imageUrl;
     public $description;
     public $category;
+    public $startingPrice;
 
     public $sellerId;
     public $buyerId;

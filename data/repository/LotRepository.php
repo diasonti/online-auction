@@ -11,6 +11,7 @@ function rowToLot($row) {
     $lot->id = $row["id"];
     $lot->title = $row["title"];
     $lot->imageUrl = $row["image_url"];
+    $lot->startingPrice = $row["starting_price"];
     $lot->description = $row["description"];
     $lot->sellerId = $row["seller_user_id"];
     $lot->buyerId = $row["buyer_user_id"];
@@ -89,4 +90,28 @@ function findLotsByCategory($category) {
         }
     }
     return $lots;
+}
+
+function findNewestLotBySellerId($id) {
+    global $db;
+    $sql = "SELECT * FROM lot WHERE seller_user_id = $id ORDER BY id DESC LIMIT 1";
+    $rows = $db->execute($sql);
+    $lot = null;
+    if($rows->num_rows == 1) {
+        $row = $rows->fetch_assoc();
+        $lot = rowToLot($row);
+    }
+    return $lot;
+}
+
+/**
+ * @param $lot Lot
+ * @return bool|mysqli_result
+ */
+function saveNewLot($lot) {
+    /** @var UserAccount $user */
+    $user = $GLOBALS["user"];
+    global $db;
+    $sql = "INSERT INTO lot (title, image_url, description, created_at, status, started_at, duration, finished_at, seller_user_id, buyer_user_id, category, starting_price) VALUES ('$lot->title', '$lot->imageUrl', '$lot->description', now(), 'betting', now(), 3600000, null, $user->id, null, '$lot->category', $lot->startingPrice)";
+    return $db->execute($sql);
 }

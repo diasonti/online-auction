@@ -7,6 +7,7 @@ import Registration from "./views/Registration"
 import NotFound from "./views/NotFound"
 import Profile from "./views/Profile"
 import LotList from "./views/LotList"
+import NewLot from "./views/NewLot"
 
 Vue.use(Router)
 
@@ -45,6 +46,11 @@ const router = new Router({
       name: 'filter',
       component: LotList,
       props: true
+    },
+    {
+      path: '/new-lot',
+      name: 'newLot',
+      component: NewLot
     },
     {
       path: '/profile',
