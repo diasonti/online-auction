@@ -14,6 +14,13 @@ create table bid
 	constraint bid_user_account_id_fk
 		foreign key (bidder_user_id) references user_account (id)
 );
+create trigger validate_bid_amount before insert on bid
+for each row
+begin
+if new.bid_amount <= (COALESCE((SELECT max(b.bid_amount) FROM bid b WHERE b.lot_id = new.lot_id), 0.99)) then
+signal sqlstate '45000';
+end if;
+end;
 */
 
 class Bid {

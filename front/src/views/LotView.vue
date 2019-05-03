@@ -20,17 +20,20 @@
                 </div>
                 <div class="card-body" v-if="lot.status === 'bidding'">
                     <h5 class="card-title">Bidding in progress</h5>
-                    <p class="card-text">Current bid: {{ lot.lastBidAmount }}}</p>
+                    <div class="alert alert-info" role="alert" v-if="lot.isLastBidMine">
+                        The greatest bid is yours
+                    </div>
+                    <p class="card-text">Current bid: {{ lot.lastBidAmount }}</p>
                     <div class="text-center">
                         <label class="sr-only" for="inlineFormInputGroup">Bid amount</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">&dollar;</div>
                             </div>
-                            <input type="number" :min="lot.lastBidAmount + 0.01" step="0.01" class="form-control" id="inlineFormInputGroup" placeholder="Bid amount">
+                            <input type="number" :min="lot.lastBidAmount + 0.01" step="0.01" class="form-control"
+                                   id="inlineFormInputGroup" placeholder="Bid amount" v-model="bidAmount">
                         </div>
-                        <button type="button" class="btn btn-primary mb-2">Place my bid</button>
-                        <button type="button" class="btn btn-primary mb-2">Place my bid</button>
+                        <button type="button" class="btn btn-primary mb-2" @click="placeBid">Place my bid</button>
                     </div>
                 </div>
                 <div class="card-body" v-if="lot.status === 'closed'">
@@ -54,6 +57,7 @@
         data() {
             return {
                 lot: "default lot",
+                bidAmount: 0.00,
                 error: null,
             }
         },
@@ -71,6 +75,23 @@
                 this.axios.get('/lots.php?action=get&id=' + this.lotId)
                     .then((response) => {
                         context.lot = response.data
+                        console.log(context.lot);
+                        context.bidAmount = context.lot.lastBidAmount + 0.01;
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                        context.error = error
+                    })
+            },
+            placeBid() {
+                const context = this;
+                const form = new FormData();
+                form.append('action', 'bid');
+                form.append('lotId', this.lot.id);
+                form.append('amount', this.bidAmount);
+                this.axios.post('/lots.php', form)
+                    .then((response) => {
+                        context.refreshLot();
                     })
                     .catch((error) => {
                         console.error(error)

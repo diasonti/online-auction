@@ -21,6 +21,20 @@ function rowToLot($row) {
     $lot->duration = $row["duration"];
     $lot->finishedAt = $row["finished_at"];
     $lot->bids = findBidsByLotId($lot->id);
+
+    $lot->lastBidUserId = 0;
+    $lot->lastBidAmount = $lot->startingPrice - 0.01;
+    foreach ($lot->bids as $bid) {
+        if($bid->amount > $lot->lastBidAmount) {
+            $lot->lastBidAmount = $bid->amount;
+            $lot->lastBidUserId = $bid->bidderId;
+        }
+    }
+
+    if(isset($GLOBALS['user'])) {
+        $lot->isLastBidMine = $lot->lastBidUserId == $GLOBALS['user']->id;
+    }
+
     return $lot;
 }
 

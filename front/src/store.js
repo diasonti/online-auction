@@ -60,9 +60,9 @@ const actions = {
         .then(response => {
           if(response.data.status === 'ok') {
             context.commit('LOGIN_CONFIRMED', response.data.user)
-          } else {
-            context.commit('LOGIN_FAILURE', 'bad.token')
-            throw 'bad.token'
+          } else if (response.data.status === 'error'){
+            context.commit('LOGIN_FAILURE', response.data.error)
+            throw response.data.error
           }
         }).catch((error) => {
       context.commit('LOGIN_FAILURE', error)

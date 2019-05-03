@@ -44,4 +44,8 @@ class Lot {
     public $finishedAt;
     public $bids;
 
+    public $lastBidAmount;
+    public $lastBidUserId;
+    public $isLastBidMine;
+
 }

@@ -47,10 +47,10 @@
                 const context = this
                 this.$store.dispatch('logOut', {})
                     .then(() => {
-                        context.$router.replace("")
+                        context.$router.push("/")
                     }).catch((error) => {
-                    console.error(error)
-                })
+                        console.error(error)
+                    })
             }
         }
     }

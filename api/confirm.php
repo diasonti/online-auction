@@ -1,12 +1,15 @@
 <?php
 require_once(__DIR__."/../core/cors.php");
-require_once(__DIR__.'/../core/auth.php');
-
-$user = $GLOBALS['user'];
-unset($user->password);
+require_once(__DIR__ . "/../core/optionalAuth.php");
 
 $response = array();
-$response['status'] = 'ok';
-$response['user'] = $user;
-
+if(isset($GLOBALS['user'])) {
+    $user = $GLOBALS['user'];
+    unset($user->password);
+    $response['status'] = 'ok';
+    $response['user'] = $user;
+} else {
+    $response['status'] = 'error';
+    $response['error'] = 'bad.token';
+}
 echo json_encode($response);

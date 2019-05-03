@@ -29,14 +29,20 @@ function findBidById($id) {
 
 function findBidsByLotId($lotId) {
     global $db;
-    $sql = "SELECT * FROM bid WHERE lot_id = $lotId ORDER BY created_at DESC";
+    $sql = "SELECT * FROM bid WHERE lot_id = $lotId ORDER BY bid_amount DESC";
     $rows = $db->execute($sql);
     $bids = array();
-    if($rows->num_rows == 1) {
+    if(!empty($rows) and $rows->num_rows > 0) {
         while($row = $rows->fetch_assoc()) {
             $bid = rowToBid($row);
             array_push($bids, $bid);
         }
     }
     return $bids;
+}
+
+function tryToCreateBid($lotId, $bidAmount, $userId) {
+    global $db;
+    $sql = "INSERT INTO bid (bidder_user_id, lot_id, bid_amount) VALUES ($userId, $lotId, $bidAmount)";
+    return $db->execute($sql);
 }
