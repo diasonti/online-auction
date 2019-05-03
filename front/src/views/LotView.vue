@@ -24,7 +24,7 @@
                         The greatest bid is yours
                     </div>
                     <p class="card-text">Current bid: {{ lot.lastBidAmount }}</p>
-                    <div class="text-center">
+                    <div class="text-center" v-if="biddingAllowed">
                         <label class="sr-only" for="inlineFormInputGroup">Bid amount</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
@@ -58,6 +58,7 @@
             return {
                 lot: "default lot",
                 bidAmount: 0.00,
+                biddingAllowed: false,
                 error: null,
             }
         },
@@ -75,8 +76,11 @@
                 this.axios.get('/lots.php?action=get&id=' + this.lotId)
                     .then((response) => {
                         context.lot = response.data
-                        console.log(context.lot);
-                        context.bidAmount = context.lot.lastBidAmount + 0.01;
+                        console.log(context.lot)
+                        context.bidAmount = context.lot.lastBidAmount + 0.01
+                        if(context.$store.getters.user) {
+                            context.biddingAllowed = context.lot.sellerId !== context.$store.getters.user.id
+                        }
                     })
                     .catch((error) => {
                         console.error(error)
