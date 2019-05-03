@@ -62,9 +62,8 @@
 
             <!-- Six cards -->
             <!--            <div class="col-2" v-for="item in featuredLots">-->
-            <div class="col" v-for="item in featuredLots">
+            <div class="col-sm-2" v-for="item in featuredLots">
                 <router-link :to="'/lot/' + item.id" class="card">
-                    <!--                    <img class="card-img-top" src="https://via.placeholder.com/500x500/777/555?text=First+Product"-->
                     <img class="card-img-top" :src="item.imageUrl"
                          :alt="item.title">
                     <div class="card-body">

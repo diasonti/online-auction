@@ -51,13 +51,16 @@ function getList($category) {
 
 function createLot($title, $imageUrl, $description, $category, $startingPrice) {
     $lot = new Lot();
-    $lot->title = $title;
-    $lot->imageUrl = $imageUrl;
-    $lot->description = $description;
-    $lot->category = $category;
-    $lot->startingPrice = $startingPrice;
-    saveNewLot($lot);
-    $lot = findNewestLotBySellerId($GLOBALS['user']->id);
-    echo $lot->id;
+    $lot->title = mysqli_escape_string($GLOBALS["db"]->conn, $title);
+    $lot->imageUrl = mysqli_escape_string($GLOBALS["db"]->conn, $imageUrl);
+    $lot->description = mysqli_escape_string($GLOBALS["db"]->conn, $description);
+    $lot->category = mysqli_escape_string($GLOBALS["db"]->conn, $category);
+    $lot->startingPrice = mysqli_escape_string($GLOBALS["db"]->conn, $startingPrice);
+    if(saveNewLot($lot)) {
+        $lot = findNewestLotBySellerId($GLOBALS['user']->id);
+        echo $lot->id;
+    } else {
+        echo 'error:something.went.wrong';
+    }
     die();
 }

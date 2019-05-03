@@ -27,7 +27,6 @@
                             <div class="form-group">
                                 <label for="categoryInput">Select category</label>
                                 <select class="form-control" id="categoryInput" v-model="newLotForm.category">
-                                    <option value="everything">Everything</option>
                                     <option value="books">Books</option>
                                     <option value="gifts">Gifts</option>
                                     <option value="toys">Toys</option>
@@ -65,7 +64,7 @@
                     title: '',
                     imageUrl: '',
                     description: '',
-                    category: 'everything',
+                    category: '',
                     startingPrice: 1.00
                 },
                 error: null,
