@@ -117,6 +117,9 @@ function saveNewLot($lot) {
 }
 
 function processFinishedLots() {
+    if(!$GLOBALS['service_access']) {
+        return;
+    }
     global $db;
 
     $sql = "UPDATE lot SET finished_at = now(), status = 'closed' WHERE now() >= DATE_ADD(started_at, INTERVAL duration SECOND);";
