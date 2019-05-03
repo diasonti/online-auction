@@ -41,9 +41,17 @@
             };
         },
         created() {
+            this.confirmToken();
+            if(this.id == null) {
+                this.checkAuth();
+            }
             this.refresh();
         },
         beforeRouteUpdate() {
+            this.confirmToken();
+            if(this.id == null) {
+                this.checkAuth();
+            }
             this.refresh();
         },
         methods: {

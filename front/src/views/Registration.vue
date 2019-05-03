@@ -64,6 +64,18 @@
                 }
             }
         },
+        created() {
+            this.confirmToken();
+            if(this.$store.getters.token != null) {
+                this.$router.push("/")
+            }
+        },
+        beforeRouteUpdate() {
+            this.confirmToken();
+            if(this.$store.getters.token != null) {
+                this.$router.push("/")
+            }
+        },
         computed: {
             confirmPassIsDifferent() {
                 return this.regForm.password !== this.regForm.passwordConfirm
@@ -79,7 +91,7 @@
                     email: email,
                     password: password,
                 }).then(() => {
-                    context.$router.push("index")
+                    context.$router.push("/")
                 }).catch((error) => {
                     context.loginForm.error = error
                 })

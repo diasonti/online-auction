@@ -71,9 +71,11 @@
             }
         },
         created() {
+            this.confirmToken();
             this.checkAuth();
         },
         beforeRouteUpdate() {
+            this.confirmToken();
             this.checkAuth();
         },
         methods: {

@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 const state = {
   token: localStorage.getItem('auth_token'),
+  user: null
 };
 
 const getters = {
@@ -19,6 +20,9 @@ const mutations = {
   },
   LOGIN_FAILURE (state, error) {
     state.token = null;
+  },
+  LOGIN_CONFIRMED (state, userAccount) {
+    state.user = userAccount;
   },
   LOGOUT (state) {
     state.token = null;
@@ -45,6 +49,25 @@ const actions = {
           context.commit('LOGIN_FAILURE', error);
           throw error
         });
+  },
+  confirmToken (context) {
+    if(context.getters.token == null) {
+      return
+    }
+    const formData = new FormData()
+    formData.append('token', context.getters.token)
+    Vue.axios.post('/confirm.php', formData)
+        .then(response => {
+          if(response.data.status === 'ok') {
+            context.commit('LOGIN_CONFIRMED', response.data.user)
+          } else {
+            context.commit('LOGIN_FAILURE', 'bad.token')
+            throw 'bad.token'
+          }
+        }).catch((error) => {
+      context.commit('LOGIN_FAILURE', error)
+      throw error
+    });
   },
   logOut (context) {
     localStorage.removeItem('auth_token');

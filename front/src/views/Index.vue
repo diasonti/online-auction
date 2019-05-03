@@ -97,7 +97,11 @@
             }
         },
         created() {
+            this.confirmToken();
             this.refreshFeaturedLots();
+        },
+        beforeRouteUpdate() {
+            this.confirmToken();
         }
     }
 </script>

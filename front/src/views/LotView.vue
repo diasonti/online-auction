@@ -58,9 +58,11 @@
             }
         },
         created() {
+            this.confirmToken();
             this.refreshLot();
         },
         beforeRouteUpdate() {
+            this.confirmToken();
             this.refreshLot();
         },
         methods: {

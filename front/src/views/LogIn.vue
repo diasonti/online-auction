@@ -44,6 +44,18 @@
                 },
             }
         },
+        created() {
+            this.confirmToken();
+            if(this.$store.getters.token != null) {
+                this.$router.push("/")
+            }
+        },
+        beforeRouteUpdate() {
+            this.confirmToken();
+            if(this.$store.getters.token != null) {
+                this.$router.push("/")
+            }
+        },
         methods: {
             submitLoginForm() {
                 return this.submitCustomLoginForm(this.loginForm.email, this.loginForm.password)

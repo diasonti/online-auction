@@ -19,8 +19,15 @@
 
 <script>
     export default {
-        name: "NotFound"
+        name: "NotFound",
+        created() {
+            this.confirmToken();
+        },
+        beforeRouteUpdate() {
+            this.confirmToken();
+        },
     }
+
 </script>
 
 <style scoped>
