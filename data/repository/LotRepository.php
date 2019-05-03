@@ -20,7 +20,7 @@ function rowToLot($row) {
     $lot->startedAt = $row["started_at"];
     $lot->duration = $row["duration"];
     $lot->finishedAt = $row["finished_at"];
-    $lot->bets = findBetsByLotId($lot->id);
+    $lot->bids = findBidsByLotId($lot->id);
     return $lot;
 }
 
@@ -112,7 +112,7 @@ function saveNewLot($lot) {
     /** @var UserAccount $user */
     $user = $GLOBALS["user"];
     global $db;
-    $sql = "INSERT INTO lot (title, image_url, description, created_at, status, started_at, duration, finished_at, seller_user_id, buyer_user_id, category, starting_price) VALUES ('$lot->title', '$lot->imageUrl', '$lot->description', now(), 'betting', now(), 3600, null, $user->id, null, '$lot->category', $lot->startingPrice)";
+    $sql = "INSERT INTO lot (title, image_url, description, created_at, status, started_at, duration, finished_at, seller_user_id, buyer_user_id, category, starting_price) VALUES ('$lot->title', '$lot->imageUrl', '$lot->description', now(), 'bidding', now(), 3600, null, $user->id, null, '$lot->category', $lot->startingPrice)";
     return $db->execute($sql);
 }
 
@@ -122,7 +122,7 @@ function processFinishedLots() {
     }
     global $db;
 
-    $sql = "UPDATE lot SET finished_at = now(), status = 'closed' WHERE now() >= DATE_ADD(started_at, INTERVAL duration SECOND);";
+    $sql = "UPDATE lot SET finished_at = now(), status = 'closed' WHERE status = 'bidding' AND now() >= DATE_ADD(started_at, INTERVAL duration SECOND);";
     $db->execute($sql);
 
     $sql = "UPDATE lot l SET buyer_user_id = (COALESCE((SELECT bidder_user_id FROM bid WHERE lot_id = l.id ORDER BY bid_amount DESC LIMIT 1) , 0)) WHERE status = 'closed' AND buyer_user_id IS NULL";

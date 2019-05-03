@@ -42,6 +42,6 @@ class Lot {
     public $startedAt;
     public $duration;
     public $finishedAt;
-    public $bets;
+    public $bids;
 
 }

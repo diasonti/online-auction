@@ -44,7 +44,7 @@
                                            placeholder="Starting price" v-model="newLotForm.startingPrice">
                                 </div>
                             </div>
-                            <p><small>Lot will be put up for betting immediately for 1 hour</small></p>
+                            <p><small>Lot will be put up for bidding immediately for 1 hour</small></p>
                             <button @click="submitCreateLotForm" type="button" class="btn btn-primary">Create</button>
                         </form>
                     </div>

@@ -16,24 +16,25 @@
             </div>
             <div class="card">
                 <div class="card-body" v-if="lot.status === 'created'">
-                    <h5 class="card-title">Betting has not started yet</h5>
+                    <h5 class="card-title">Bidding has not started yet</h5>
                 </div>
-                <div class="card-body" v-if="lot.status === 'betting'">
-                    <h5 class="card-title">Betting in progress</h5>
-                    <p class="card-text">Current bet: 2$</p>
+                <div class="card-body" v-if="lot.status === 'bidding'">
+                    <h5 class="card-title">Bidding in progress</h5>
+                    <p class="card-text">Current bid: {{ lot.lastBidAmount }}}</p>
                     <div class="text-center">
-                        <label class="sr-only" for="inlineFormInputGroup">Bet amount</label>
+                        <label class="sr-only" for="inlineFormInputGroup">Bid amount</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">&dollar;</div>
                             </div>
-                            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Bet amount">
+                            <input type="number" :min="lot.lastBidAmount + 0.01" step="0.01" class="form-control" id="inlineFormInputGroup" placeholder="Bid amount">
                         </div>
-                        <button type="button" class="btn btn-primary mb-2">Place your bet</button>
+                        <button type="button" class="btn btn-primary mb-2">Place my bid</button>
+                        <button type="button" class="btn btn-primary mb-2">Place my bid</button>
                     </div>
                 </div>
                 <div class="card-body" v-if="lot.status === 'closed'">
-                    <h5 class="card-title">Betting finished</h5>
+                    <h5 class="card-title">Bidding finished</h5>
                     <p class="card-text">Buyer id: {{ lot.buyerId }}</p>
                 </div>
             </div>

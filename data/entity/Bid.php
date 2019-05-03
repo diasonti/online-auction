@@ -9,9 +9,9 @@ create table bid
 	bidder_user_id bigint not null,
 	lot_id bigint not null,
 	bid_amount decimal(19, 2) not null,
-	constraint bet_lot_id_fk
+	constraint bid_lot_id_fk
 		foreign key (lot_id) references lot (id),
-	constraint bet_user_account_id_fk
+	constraint bid_user_account_id_fk
 		foreign key (bidder_user_id) references user_account (id)
 );
 */

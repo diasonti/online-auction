@@ -15,7 +15,7 @@ function rowToBid($row) {
     return $bid;
 }
 
-function findBetById($id) {
+function findBidById($id) {
     global $db;
     $sql = "SELECT * FROM bid WHERE id = $id";
     $rows = $db->execute($sql);
@@ -27,7 +27,7 @@ function findBetById($id) {
     return $bid;
 }
 
-function findBetsByLotId($lotId) {
+function findBidsByLotId($lotId) {
     global $db;
     $sql = "SELECT * FROM bid WHERE lot_id = $lotId ORDER BY created_at DESC";
     $rows = $db->execute($sql);
