@@ -116,8 +116,12 @@ function saveNewLot($lot) {
     return $db->execute($sql);
 }
 
-function markFinishedLots() {
+function processFinishedLots() {
     global $db;
-    $sql = "";
-    return $db->execute($sql);
+
+    $sql = "UPDATE lot SET finished_at = now(), status = 'closed' WHERE now() >= DATE_ADD(started_at, INTERVAL duration SECOND);";
+    $db->execute($sql);
+
+    $sql = "UPDATE lot l SET buyer_user_id = (COALESCE((SELECT bidder_user_id FROM bid WHERE lot_id = l.id ORDER BY bid_amount DESC LIMIT 1) , 0)) WHERE status = 'closed' AND buyer_user_id IS NULL";
+    $db->execute($sql);
 }
