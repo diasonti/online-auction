@@ -12,6 +12,17 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.config.productionTip = false
 
+Vue.mixin({
+  methods: {
+    checkAuth() {
+      if(this.$store.getters.token == null) {
+        this.$router.replace("/");
+        throw "front.auth.error";
+      }
+    }
+  }
+})
+
 new Vue({
   router,
   store,

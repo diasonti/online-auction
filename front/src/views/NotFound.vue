@@ -19,32 +19,7 @@
 
 <script>
     export default {
-        name: "NotFound",
-        data() {
-            return {
-                loginForm: {
-                    email: "",
-                    password: "",
-                    error: null
-                },
-            }
-        },
-        methods: {
-            submitLoginForm() {
-                return this.submitCustomLoginForm(this.loginForm.email, this.loginForm.password)
-            },
-            submitCustomLoginForm(email, password) {
-                const context = this
-                this.$store.dispatch('checkCredentials', {
-                    email: email,
-                    password: password,
-                }).then(() => {
-                    context.$router.replace("/")
-                }).catch((error) => {
-                    context.loginForm.error = error
-                })
-            },
-        },
+        name: "NotFound"
     }
 </script>
 

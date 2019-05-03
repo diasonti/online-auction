@@ -48,6 +48,7 @@
         },
         methods: {
             refresh() {
+                this.checkAuth();
                 const context = this;
                 const query = context.id != null ? "?id=" + context.id : ""
                 this.axios.get('/profile.php' + query)
